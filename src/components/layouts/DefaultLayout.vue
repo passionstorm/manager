@@ -1,38 +1,21 @@
 <template>
-    <v-app-bar id="inspire" class="app dashboard">
-        <app-sidebar class="app--drawer" :show-drawer="showDrawer"></app-sidebar>
-        <app-toolbar class="app--toolbar" @side-icon-click="handleDrawerVisiable"></app-toolbar>
-        <v-content>
-            <!-- Page Header -->
-            <page-header></page-header>
-            <div class="page-wrapper">
-                <router-view></router-view>
-            </div>
-            <!-- App Footer -->
-            <v-footer height="auto" class="white pa-3 app--footer">
-                <span class="caption">isocked.com Design &copy; {{ new Date().getFullYear() }}</span>
-                <v-spacer></v-spacer>
-                <span class="caption mr-1"> Make With Love </span>
-                <v-icon color="pink" small>favorite</v-icon>
-            </v-footer>
-        </v-content>
-        <!-- Go to top -->
-        <app-fab></app-fab>
-    </v-app-bar>
+    <div class="app-container">
+        <app-header/>
+        <app-sidebar/>
+        <app-footer/>
+    </div>
 </template>
 
 <script>
   import AppSidebar from '@/components/AppSidebar';
-  import AppToolbar from '@/components/AppToolbar';
-  import AppFab from '@/components/AppFab';
-  import PageHeader from '@/components/PageHeader';
+  import AppHeader from '@/components/AppHeader';
+  import AppFooter from '@/components/AppFooter';
 
   export default {
     components: {
       AppSidebar,
-      AppToolbar,
-      AppFab,
-      PageHeader,
+      AppHeader,
+      AppFooter,
     },
     data() {
       return {
@@ -50,7 +33,29 @@
 </script>
 
 <style scoped>
-    .page-wrapper {
-        min-height: calc(100vh - 64px - 50px - 81px);
+    .app-container {
+        display: grid;
+        grid-template-columns: 240px 1fr;
+        grid-template-rows: 50px 1fr 50px;
+        grid-template-areas: "sidenav header" "sidenav main" "sidenav footer";
+        height: 100vh;
+    }
+
+    .app-header {
+        grid-area: header;
+        background-color: #648ca6;
+    }
+
+    .app-sidebar {
+        grid-area: sidenav;
+        background-color: #394263;
+    }
+
+    .app-header, .app-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 16px;
+        background-color: #648ca6;
     }
 </style>

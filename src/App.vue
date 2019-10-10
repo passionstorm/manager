@@ -3,12 +3,6 @@
         <router-view></router-view>
         <!-- setting drawer -->
         <!-- global snackbar -->
-        <v-snackbar :timeout="3000" bottom right :color="snackbar.color" v-model="snackbar.show">
-            {{ snackbar.text }}
-            <v-btn dark flat @click.native="snackbar.show = false" icon>
-                <v-icon>close</v-icon>
-            </v-btn>
-        </v-snackbar>
     </div>
 </template>
 
@@ -27,13 +21,19 @@
       };
     },
     created() {
-      // add app events
     },
-    methods: {
-      openThemeSettings() {
-        this.$vuetify.goTo(0);
-        this.rightDrawer = !this.rightDrawer;
-      },
-    },
+    methods: {},
   };
 </script>
+<style>
+    .container {
+        display: flex;
+    }
+    .item {
+        flex-grow: 1;
+        height: 100px;
+    }
+    .item + .item {
+        margin-left: 2%;
+    }
+</style>
