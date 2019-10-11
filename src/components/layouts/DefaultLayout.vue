@@ -80,6 +80,7 @@ a {
     "sidenav main"
     "sidenav footer";
   height: 100vh;
+  background: #f4f6f9;
 }
 
 .app_header {
