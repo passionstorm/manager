@@ -1,5 +1,5 @@
 <template>
-    <header class="app-header">
+    <header class="app_header">
         <div class="header__search">Search...</div>
         <div class="header__avatar">Your face</div>
     </header>
