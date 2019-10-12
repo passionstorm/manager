@@ -1,9 +1,10 @@
 <template>
-  <div class="app_container">
+  <div class="app_container" :class="{'sidebar_close': !sidebarOpen}">
     <app-header />
     <app-sidebar />
     <app-main />
     <app-footer />
+    <div class="sidebar_overlay" @click="sidebarOverlayClick"></div>
   </div>
 </template>
 
@@ -25,9 +26,14 @@ export default {
       showDrawer: true
     };
   },
+  computed: {
+    sidebarOpen() {
+      return this.$store.state.app.sidebarOpen;
+    }
+  },
   methods: {
-    handleDrawerVisiable() {
-      this.showDrawer = !this.showDrawer;
+    sidebarOverlayClick() {
+      this.$store.dispatch("toggleSidebar");
     }
   },
   created() {}
@@ -39,24 +45,11 @@ export default {
 $color: #404040;
 $color-d: darken($color, 5%);
 $color-l: lighten($color, 7.5%);
-$width_sidenav: 260px;
+$width_sidenav: 250px;
 $height_header: 50px;
 $height_footer: 50px;
-
-*,
-*:before,
-*:after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-*:before,
-*:after {
-  content: "";
-  display: block;
-  position: absolute;
-}
+$min_width_display_sidenav: 46.875em;
+$width_sidenav_close: $width_sidenav - 190px;
 
 html,
 body {
@@ -66,21 +59,53 @@ body {
   font: 15px/1 "Open Sans", sans-serif;
   color: #777;
 }
-
 a {
   cursor: pointer;
 }
-
+.sidebar_overlay {
+  background-color: rgba(0, 0, 0, 0.1);
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 9;
+}
 .app_container {
   display: grid;
-  grid-template-columns: $width_sidenav 1fr;
   grid-template-rows: $height_header 1fr $height_footer;
   grid-template-areas:
-    "sidenav header"
-    "sidenav main"
-    "sidenav footer";
+    "header"
+    "main"
+    "footer";
   height: 100vh;
   background: #f4f6f9;
+  transition: margin-left .3s ease-in-out,width .3s ease-in-out;
+}
+.sidenav {
+  position: fixed;
+  height: 100vh;
+  z-index: 10;
+  width: $width_sidenav;
+  transition: margin-left .3s ease-in-out,width .3s ease-in-out;
+}
+
+.sidebar_close .sidenav{
+  width: $width_sidenav_close;
+  transition: margin-left .3s ease-in-out,width .3s ease-in-out;
+}
+
+.sidebar_close .sidenav {
+  display: none;
+}
+
+.sidebar_close .sidebar_overlay {
+  display: none;
+}
+
+.app_container.sidebar_close {
+  grid-template-columns: 1fr; /* Side nav is hidden on mobile */
 }
 
 .app_header {
@@ -93,22 +118,38 @@ a {
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-  background-color: #648ca6;
 }
-
-
+.disabled {
+  color: grey;
+  pointer-events: none;
+  text-decoration: blink;
+}
 /* Non-mobile styles, 750px breakpoint */
-@media only screen and (min-width: 46.875em) {
-  /* Show the sidenav */
-  .grid-container {
-    grid-template-columns: 240px 1fr; /* Show the side nav for non-mobile screens */
+@media only screen and (min-width: $min_width_display_sidenav) {
+  .app_container.sidebar_close {
+    grid-template-columns: $width_sidenav_close 1fr;
+    grid-template-areas:
+      "sidenav header"
+      "sidenav main"
+      "sidenav footer";
+      transition: all 1s ease-in-out;
+  }
+  .app_container {
+    grid-template-columns: $width_sidenav 1fr; /* Show the side nav for non-mobile screens */
     grid-template-areas:
       "sidenav header"
       "sidenav main"
       "sidenav footer";
   }
+  .sidebar_close .sidenav {
+    display: block;
+  }
+  .sidebar_overlay {
+    display: none;
+  }
   .sidenav {
     display: flex;
+    position: relative;
     flex-direction: column;
   }
 }

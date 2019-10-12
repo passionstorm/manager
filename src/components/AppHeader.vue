@@ -1,52 +1,107 @@
 <template>
-    <header class="app_header">
-        <div class="header__search">Search...</div>
-        <div class="header__avatar">Your face</div>
-    </header>
+  <nav class="navbar">
+    <div class="navbar_list">
+      <div class="navbar_item">
+        <div class="navbar_icon" @click="sidebarClick">
+          <i class="fas fa-bars"></i>
+        </div>
+      </div>
+      <div class="navbar_item">
+        <div class="navbar_link">Titel</div>
+      </div>
+      <div class="navbar_item">
+        <div class="navbar_link">Righ bar</div>
+      </div>
+    </div>
+  </nav>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        title: 'Home',
-        breadcrumbs: [],
-      };
-    },
-    watch: {
-      '$route.path': function(newVal) {
-        this.computeBreadcrumbs();
-      },
-    },
-    methods: {
-      computeBreadcrumbs() {
-        let breadcrumbs = [
-          {
-            text: 'Home',
-            href: '/',
-            disabled: false,
-          },
-        ];
-        let appends = [];
-        // appends = this.$route.matched.map(item => {
-        //   return {
-        //     text: item.meta.title || '',
-        //     href: item.path || '/',
-        //     disabled: item.path === this.$route.path,
-        //   };
-        // });
-        this.breadcrumbs = breadcrumbs.concat(appends);
-      },
-    },
-    created() {
+import { log } from 'util';
+export default {
+  data() {
+    return {
+      title: "Home",
+      breadcrumbs: []
+    };
+  },
+  computed:{
+    sidebarOpen(){
+      return this.$store.state.app.sidebarOpen
+    }
+  },
+  watch: {
+    "$route.path": function(newVal) {
       this.computeBreadcrumbs();
     },
-  };
+  },
+  methods: {
+    sidebarClick(){
+      this.$store.dispatch('toggleSidebar')
+    },
+    computeBreadcrumbs() {
+      let breadcrumbs = [
+        {
+          text: "Home",
+          href: "/",
+          disabled: false
+        }
+      ];
+      let appends = [];
+      // appends = this.$route.matched.map(item => {
+      //   return {
+      //     text: item.meta.title || '',
+      //     href: item.path || '/',
+      //     disabled: item.path === this.$route.path,
+      //   };
+      // });
+      this.breadcrumbs = breadcrumbs.concat(appends);
+    }
+  },
+  created() {
+    this.computeBreadcrumbs();
+  }
+};
 </script>
 <style scoped>
-    .disabled {
-        color: grey;
-        pointer-events: none;
-        text-decoration: blink;
-    }
+.disabled {
+  color: grey;
+  pointer-events: none;
+  text-decoration: blink;
+}
+.navbar {
+  border-bottom: 1px solid #dee2e6;
+  background-color: #fff;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.navbar_list {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar_icon{
+    position: relative;
+    display: block;
+    padding: .5rem 1rem;
+    cursor: pointer;
+}
+.navbar_link{
+  padding: 0 1rem;
+  text-align: center;
+  cursor: pointer;
+}
 </style>
