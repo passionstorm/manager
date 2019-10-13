@@ -7,7 +7,7 @@
         </div>
       </div>
       <div class="navbar_item">
-        <div class="navbar_link">Titel</div>
+        <div class="navbar_link">{{title}}</div>
       </div>
       <div class="navbar_item">
         <div class="navbar_link">Righ bar</div>
@@ -21,11 +21,13 @@ import { log } from 'util';
 export default {
   data() {
     return {
-      title: "Home",
       breadcrumbs: []
     };
   },
   computed:{
+    title(){
+      return this.$route.meta.title.toUpperCase()
+    },
     sidebarOpen(){
       return this.$store.state.app.sidebarOpen
     }
@@ -60,15 +62,12 @@ export default {
   },
   created() {
     this.computeBreadcrumbs();
+    console.log();
   }
 };
 </script>
 <style scoped>
-.disabled {
-  color: grey;
-  pointer-events: none;
-  text-decoration: blink;
-}
+
 .navbar {
   border-bottom: 1px solid #dee2e6;
   background-color: #fff;

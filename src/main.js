@@ -5,6 +5,12 @@ import store from "./store"
 
 Vue.config.productionTip = false
 
+import Card from './components/widgets/Card'
+import Editor from './components/widgets/Editor'
+
+Vue.component('Card', Card)
+Vue.component('Editor', Editor)
+
 new Vue({
   render: h => h(App),
   router,

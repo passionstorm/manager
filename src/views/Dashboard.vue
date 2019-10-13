@@ -1,6 +1,13 @@
 <template>
-    <div></div>
+  <div>
+    <div class="cards">
+      <Card>saccasjj</Card>
+    </div>
+  </div>
 </template>
 <script>
-    export default {}
+export default {};
 </script>
+
+<style scoped>
+</style>

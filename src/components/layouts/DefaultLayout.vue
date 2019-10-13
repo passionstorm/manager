@@ -1,6 +1,6 @@
 <template>
   <div class="app_container" :class="{'sidebar_close': !sidebarOpen}">
-    <app-header />
+  <app-header />
     <app-sidebar />
     <app-main />
     <app-footer />
@@ -39,7 +39,6 @@ export default {
   created() {}
 };
 </script>
-
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css?family=Open+Sans");
 $color: #404040;
@@ -55,6 +54,7 @@ html,
 body {
   height: 100%;
 }
+
 body {
   font: 15px/1 "Open Sans", sans-serif;
   color: #777;

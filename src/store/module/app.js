@@ -1,9 +1,30 @@
 const types = {
-  TOGGLE_SIDEBAR: 'TOGGLE_SIDEBAR' 
+  TOGGLE_SIDEBAR: 'TOGGLE_SIDEBAR',
 }
 
 const state = {
-  sidebarOpen: false
+  sidebarOpen: true
+}
+
+const loadState= () => {
+  try {
+    var serializedState = localStorage.getItem('app');
+    if (serializedState === null || serializedState == '[]') {
+      return undefined;
+    }
+    return JSON.parse(serializedState);
+  } catch (err) {
+    return undefined;
+  }
+}
+
+const saveState = (state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localStorage.setItem('app', serializedState);
+  } catch (err) {
+    console.error(`Something went wrong: ${err}`);
+  }
 }
 
 const getters = {
