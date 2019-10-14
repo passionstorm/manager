@@ -162,7 +162,7 @@
 </template>
 
 <script>
-import icon from "@/components/widgets/Icon";
+import icon from "@/components/widgets/Svg";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import {
   Blockquote,

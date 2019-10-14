@@ -1,5 +1,5 @@
 <template>
- <img class="icon"  :src="loadIcon"  :class="[`icon--${name}`, `icon--${size}`, { 'has-align-fix': fixAlign }]"/>
+    <i class="icon" v-html="loadIcon"></i> 
 </template>
 
 <script>
@@ -17,7 +17,6 @@ export default {
     },
   },
   components: {
-    // 'Svg': ()=> import(``)
   },
   computed: {
     loadIcon(){
