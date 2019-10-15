@@ -1,10 +1,20 @@
 <template>
-  <div class="app_container" :class="{'sidebar_close': !sidebarOpen}">
-  <app-header />
+  <div class="app_container" :class="{'sidebar_close': !sidebarOpen}" >
+    <app-header />
     <app-sidebar />
-    <app-main />
-    <app-footer />
-    <div class="sidebar_overlay" @click="sidebarOverlayClick"></div>
+    <main>
+      <router-view @slot-footer="slot => slotFooter = slot" />
+    </main>
+    <!-- <keep-alive> -->
+  
+    <!-- </keep-alive> -->
+    <app-footer>
+      <component :is="slotFooter"></component>
+    </app-footer>
+    <div
+      class="sidebar_overlay"
+      @click="sidebarOverlayClick"
+    ></div>
   </div>
 </template>
 
@@ -13,17 +23,17 @@ import AppSidebar from "@/components/AppSidebar";
 import AppHeader from "@/components/AppHeader";
 import AppFooter from "@/components/AppFooter";
 import AppMain from "@/components/AppMain";
-
 export default {
   components: {
     AppSidebar,
     AppHeader,
     AppFooter,
-    AppMain
+    AppMain,
   },
   data() {
     return {
-      showDrawer: true
+      showDrawer: true,
+      slotFooter: null
     };
   },
   computed: {
@@ -31,9 +41,20 @@ export default {
       return this.$store.state.app.sidebarOpen;
     }
   },
+  watch: {
+    slotc: function(val) {
+      // console.log(val);
+    }
+  },
   methods: {
     sidebarOverlayClick() {
       this.$store.dispatch("toggleSidebar");
+    },
+    slotContent(val) {
+      // slotContent = val
+      //
+      this.slotc = val;
+      // console.log( this.slotc)
     }
   },
   created() {}
@@ -49,6 +70,11 @@ $height_header: 50px;
 $height_footer: 50px;
 $min_width_display_sidenav: 46.875em;
 $width_sidenav_close: $width_sidenav - 190px;
+
+main {
+  padding: 15px 0.5rem;
+  overflow: scroll;
+}
 
 html,
 body {
@@ -81,19 +107,19 @@ a {
     "footer";
   height: 100vh;
   background: #f4f6f9;
-  transition: margin-left .3s ease-in-out,width .3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 .sidenav {
   position: fixed;
   height: 100vh;
   z-index: 10;
   width: $width_sidenav;
-  transition: margin-left .3s ease-in-out,width .3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
-.sidebar_close .sidenav{
+.sidebar_close .sidenav {
   width: $width_sidenav_close;
-  transition: margin-left .3s ease-in-out,width .3s ease-in-out;
+  transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
 }
 
 .sidebar_close .sidenav {
@@ -132,7 +158,7 @@ a {
       "sidenav header"
       "sidenav main"
       "sidenav footer";
-      transition: all 1s ease-in-out;
+    transition: all 1s ease-in-out;
   }
   .app_container {
     grid-template-columns: $width_sidenav 1fr; /* Show the side nav for non-mobile screens */

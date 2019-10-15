@@ -23,6 +23,7 @@ module.exports = {
     config.resolve.alias
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'))
+      .set('_w', resolve('src/components/widgets'))
 
     config.module
       .rule('svg')

@@ -3,7 +3,7 @@
     <div class="navbar_list">
       <div class="navbar_item">
         <div class="navbar_icon" @click="sidebarClick">
-          <i class="fas fa-bars"></i>
+          <icon name="menu"/>
         </div>
       </div>
       <div class="navbar_item">
@@ -17,8 +17,10 @@
 </template>
 
 <script>
-import { log } from 'util';
 export default {
+  components:{
+    'icon': () => import('_w/Svg')
+  },
   data() {
     return {
       breadcrumbs: []
@@ -97,6 +99,10 @@ export default {
     display: block;
     padding: .5rem 1rem;
     cursor: pointer;
+}
+.navbar_icon i{
+  width: 24px;
+  height: 24px;
 }
 .navbar_link{
   padding: 0 1rem;

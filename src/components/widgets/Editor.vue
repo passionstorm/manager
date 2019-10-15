@@ -158,11 +158,13 @@
         v-html="i"
       ></span>
     </div>
+    
   </div>
 </template>
 
 <script>
 import icon from "@/components/widgets/Svg";
+import SlotContent from '_c/SlotContent';
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import {
   Blockquote,
@@ -196,6 +198,10 @@ export default {
     buttons() {
       return this.field.buttons ? this.field.buttons : ["bold", "italic"];
     }
+  },
+  created() {
+    // As soon as this component is created we'll emit our events
+    // this.$emit('slot-content', SlotContent);
   },
   data() {
     return {
