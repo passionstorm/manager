@@ -1,13 +1,18 @@
 <template>
-  <div class="app_container" :class="{'sidebar_close': !sidebarOpen}" >
-    <app-header />
+  <div
+    class="app_container"
+    :class="{'sidebar_close': !sidebarOpen}"
+  >
+    <app-header>
+      <component :is="slotHeader"></component>
+    </app-header>
     <app-sidebar />
     <main>
-      <router-view @slot-footer="slot => slotFooter = slot" />
+      <router-view
+        @slot-footer="slot => slotFooter = slot"
+        @slot-header="slot => slotHeader = slot"
+      />
     </main>
-    <!-- <keep-alive> -->
-  
-    <!-- </keep-alive> -->
     <app-footer>
       <component :is="slotFooter"></component>
     </app-footer>
@@ -28,12 +33,13 @@ export default {
     AppSidebar,
     AppHeader,
     AppFooter,
-    AppMain,
+    AppMain
   },
   data() {
     return {
       showDrawer: true,
-      slotFooter: null
+      slotFooter: null,
+      slotHeader: null
     };
   },
   computed: {
@@ -41,20 +47,10 @@ export default {
       return this.$store.state.app.sidebarOpen;
     }
   },
-  watch: {
-    slotc: function(val) {
-      // console.log(val);
-    }
-  },
+  watch: {},
   methods: {
     sidebarOverlayClick() {
       this.$store.dispatch("toggleSidebar");
-    },
-    slotContent(val) {
-      // slotContent = val
-      //
-      this.slotc = val;
-      // console.log( this.slotc)
     }
   },
   created() {}
@@ -67,7 +63,7 @@ $color-d: darken($color, 5%);
 $color-l: lighten($color, 7.5%);
 $width_sidenav: 250px;
 $height_header: 50px;
-$height_footer: 50px;
+$height_footer: 100px;
 $min_width_display_sidenav: 46.875em;
 $width_sidenav_close: $width_sidenav - 190px;
 
@@ -136,7 +132,6 @@ a {
 
 .app_header {
   grid-area: header;
-  background-color: #648ca6;
 }
 .app_header,
 .app_footer {
@@ -150,6 +145,9 @@ a {
   pointer-events: none;
   text-decoration: blink;
 }
+
+
+
 /* Non-mobile styles, 750px breakpoint */
 @media only screen and (min-width: $min_width_display_sidenav) {
   .app_container.sidebar_close {

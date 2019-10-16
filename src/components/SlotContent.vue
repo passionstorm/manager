@@ -1,21 +1,24 @@
 <template>
-    <div>
-      <button class="btn" @click="test">click</button>
-        <button>back</button>
-    </div>
+  <div>
+    <button
+      class="btn"
+      @click="test"
+    >click</button>
+    <button>back</button>
+  </div>
 </template>
 
 <script>
-import {bus} from '@/main'
 export default {
-   methods:{
-       test(){
-            bus.$emit('click_save','me');
-        }
-   }    
-}
+  methods: {
+    test() {
+        console.log(this.$bus);
+        
+      this.$bus.$emit("dashboard.click_save", "me");
+    }
+  }
+};
 </script>
 
 <style>
-
 </style>

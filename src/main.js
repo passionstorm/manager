@@ -15,4 +15,5 @@ new Vue({
   render: h => h(App),
   router,
   store,
+  bus,
 }).$mount('#app')

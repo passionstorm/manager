@@ -3,43 +3,31 @@
     <div class="cards">
       <Card>saccasjj</Card>
     </div>
-    <button type="button" >Click here</button>
+    <button type="button">Click here</button>
   </div>
 </template>
 <script>
-import {mapState} from 'vuex'
-import {bus} from '@/main'
+import { bus } from "@/main";
 export default {
-  components:{
+  components: {},
+  methods: {},
+  data() {
+    return {
+      abc: "ngu"
+    };
   },
-  methods:{
-  },
-  data(){
-    return{
-        abc: 'ngu',
-    }
-  },
-  computed: {
-    ...mapState('dashboard_footer', ['ngu']),
-  },
+  computed: {},
   created() {
-    this.$emit('slot-footer', () => import('_c/SlotContent'));
-    bus.$on('click_save', (data) => {
-      console.log('x');
-    })
+    this.$emit("slot-footer", () => import("_c/SlotContent"));
+    bus.$on("dashboard.click_save", data => {
+    });
   },
-  mounted: function(){
-    console.log('mounted', this._inactive, this.item)
+  mounted: function() {
   },
-  destroyed: function () {
-    console.log('destroyed', this._inactive, this.item)
-  },
-  activated: function(){
-    console.log('activated', this._inactive, this.item)
-  },
-  deactivated: function(){
-    console.log('deactivated', this._inactive, this.item)
-  },
+  destroyed: function() {
+    bus.$off("dashboard.click_save");
+    this.$emit("slot-footer", () => import("_c/SlotContent"));
+  }
 };
 </script>
 

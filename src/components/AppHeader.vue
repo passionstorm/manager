@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar">
+  <nav class="navbar_menu">
     <div class="navbar_list">
       <div class="navbar_item">
         <div class="navbar_icon" @click="sidebarClick">
@@ -70,7 +70,7 @@ export default {
 </script>
 <style scoped>
 
-.navbar {
+.navbar_menu {
   border-bottom: 1px solid #dee2e6;
   background-color: #fff;
   display: -ms-flexbox;
@@ -85,12 +85,6 @@ export default {
 .navbar_list {
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  padding-left: 0;
-  margin-bottom: 0;
-  list-style: none;
-  flex-direction: row;
   align-items: center;
   justify-content: space-between;
 }

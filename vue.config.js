@@ -24,6 +24,7 @@ module.exports = {
       .set('@', resolve('src')) // key,value自行定义，比如.set('@@', resolve('src/components'))
       .set('_c', resolve('src/components'))
       .set('_w', resolve('src/components/widgets'))
+      .set('_v', resolve('src/views'))
 
     config.module
       .rule('svg')
