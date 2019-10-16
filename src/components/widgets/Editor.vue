@@ -3,8 +3,14 @@
     <editor-content class="editor_content" :editor="editor"></editor-content>
     <editor-menu-bar :editor="editor" v-slot="{ commands, isActive }">
       <div class="menubar">
-       
         <div class="row">
+          <div>
+            <label for="file">
+                Upload image
+               <input style="display:none;" type="file" id="file" ref="file" accept="image/*" v-on:change="uploadImage(commands.image)"/>
+                <img v-bind:src="imagePreview" v-show="showPreview"/>
+            </label>
+          </div>
           <span v-if="isActive.table()">
             <button type="button" class="menubar__button" @click="commands.deleteTable">
               <icon name="delete_table" />
@@ -32,7 +38,7 @@
             </button>
           </span>
         </div>
-         <div class="row">
+        <div class="row">
           <button @click="menuEmojiClick" type="button" class="menubar__button">
             <i>😁</i>
           </button>
@@ -158,13 +164,12 @@
         v-html="i"
       ></span>
     </div>
-    
   </div>
 </template>
 
 <script>
 import icon from "@/components/widgets/Svg";
-import SlotContent from '_c/SlotContent';
+import SlotContent from "_c/SlotContent";
 import { Editor, EditorContent, EditorMenuBar } from "tiptap";
 import {
   Blockquote,
@@ -218,7 +223,10 @@ export default {
         [128640, 128704]
       ],
       listEmoji: [],
-      showEmoji: false
+      showEmoji: false,
+      imagePreview: null,
+      file: '',
+      showPreview: false,
     };
   },
   methods: {
@@ -236,6 +244,26 @@ export default {
     },
     menuEmojiClick() {
       this.showEmoji = !this.showEmoji;
+    },
+    uploadImage(command) {
+      this.file = this.$refs.file.files[0];
+      let reader = new FileReader();
+
+      reader.addEventListener(
+        "load",
+        function() {
+          this.showPreview = true;
+          // this.imagePreview = reader.result;
+          //reader.result
+          command(reader.result)
+        }.bind(this),
+        false
+      );
+      if (this.file) {
+        if (/\.(jpe?g|png|gif)$/i.test(this.file.name)) {
+          reader.readAsDataURL(this.file);
+        }
+      }
     }
   },
   mounted() {
@@ -293,8 +321,6 @@ export default {
   height: 48px;
 }
 
-
-
 .menubar__button {
   font-weight: 700;
   display: -webkit-inline-box;
@@ -318,35 +344,36 @@ export default {
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
-.menubar .row{
-    flex-wrap: wrap;
+.menubar .row {
+  flex-wrap: wrap;
 }
 .editor_content {
   background: #fff;
   overflow-wrap: break-word;
-    word-wrap: break-word;
-    word-break: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
 .editor_content .tableWrapper {
-    margin: 1em 0;
-    overflow-x: auto;
+  margin: 1em 0;
+  overflow-x: auto;
 }
 .editor_content table {
-    border-collapse: collapse;
-    table-layout: fixed;
-    width: 100%;
-    margin: 0;
-    overflow: hidden;
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
-.editor_content table td, .editor__content table th {
-    min-width: 1em;
-    border: 2px solid #ddd;
-    padding: 3px 5px;
-    vertical-align: top;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    position: relative;
+.editor_content table td,
+.editor__content table th {
+  min-width: 1em;
+  border: 2px solid #ddd;
+  padding: 3px 5px;
+  vertical-align: top;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .editor_content div:first-child {
