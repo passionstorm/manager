@@ -8,6 +8,7 @@
 </template>
 <script>
 import {mapState} from 'vuex'
+import {bus} from '@/main'
 export default {
   components:{
   },
@@ -23,23 +24,8 @@ export default {
   },
   created() {
     this.$emit('slot-footer', () => import('_c/SlotContent'));
-    this.$store.registerModule('dashboard_footer', {
-        namespaced: true,
-        state () {
-          return {
-              ngu: 'a',
-          }
-        },
-        actions: {
-          clickSave ({ commit, state }) {
-             console.log(this.ngu)
-          }
-        },
-    })
-    this.$store.subscribeAction((action, state) => {
-      console.log("Action Type: ", action.type)
-      console.log("Action Payload: ", action.payload)
-      console.log("Current State: ", state)
+    bus.$on('click_save', (data) => {
+      console.log('x');
     })
   },
   mounted: function(){
@@ -47,7 +33,13 @@ export default {
   },
   destroyed: function () {
     console.log('destroyed', this._inactive, this.item)
-  }
+  },
+  activated: function(){
+    console.log('activated', this._inactive, this.item)
+  },
+  deactivated: function(){
+    console.log('deactivated', this._inactive, this.item)
+  },
 };
 </script>
 

@@ -1,4 +1,4 @@
-import AdminLayout from '../components/layouts/DefaultLayout'
+import AdminLayout from '@/components/layouts/DefaultLayout'
 export default [
   {
     path: '/',

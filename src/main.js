@@ -10,7 +10,7 @@ import Editor from './components/widgets/Editor'
 
 Vue.component('Card', Card)
 Vue.component('Editor', Editor)
-
+export const bus = new Vue();
 new Vue({
   render: h => h(App),
   router,

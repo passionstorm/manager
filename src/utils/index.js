@@ -3,6 +3,9 @@
 
 //   return capitalize(camel);
 // }
+import Vue from 'vue'
+export const bus = new Vue();
+
 
 // export function camelActual (str) {
 //   return (str || '').replace(/-(\w)/g, (_, c) => (c ? c.toUpperCase() : ''));

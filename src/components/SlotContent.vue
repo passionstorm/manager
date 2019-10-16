@@ -1,17 +1,17 @@
 <template>
     <div>
-      <button @click="test">click</button>
+      <button class="btn" @click="test">click</button>
         <button>back</button>
     </div>
 </template>
 
 <script>
+import {bus} from '@/main'
 export default {
-        
    methods:{
        test(){
-            this.$store.dispatch("dashboard_footer/clickSave");
-       }
+            bus.$emit('click_save','me');
+        }
    }    
 }
 </script>
