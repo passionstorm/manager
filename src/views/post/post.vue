@@ -17,11 +17,11 @@ export default {
     };
   },
   created() {
-    this.$emit('slot-footer', () => import( '@/views/post/post_footer'));
+    
     
   },
   mounted() {
-    
+    this.$emit('slot-footer', () => import( '@/views/post/post_footer'));
   },
   beforeDestroy() {
   }

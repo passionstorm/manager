@@ -1,7 +1,7 @@
 <template>
     <div class="btn_area">
-        <button class="btn btn-primary">Save</button>
         <button class="btn">Back To List </button>
+        <button class="btn btn-primary">Đăng</button>
     </div>
 </template>
 
@@ -15,6 +15,7 @@ export default {
 .btn_area{
     display: flex;
     width: 100%;
-    margin-bottom: 20px;
+    justify-content: space-between;
+    padding: 0 20px;
 }
 </style>

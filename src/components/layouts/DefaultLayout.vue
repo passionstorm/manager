@@ -63,7 +63,7 @@ $color-d: darken($color, 5%);
 $color-l: lighten($color, 7.5%);
 $width_sidenav: 250px;
 $height_header: 50px;
-$height_footer: 100px;
+$height_footer: 70px;
 $min_width_display_sidenav: 46.875em;
 $width_sidenav_close: $width_sidenav - 190px;
 
@@ -138,7 +138,6 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
 }
 .disabled {
   color: grey;
